@@ -2,74 +2,76 @@
 #include "shot.h"
 #include "player.h"
 
-cShot::cShot() :
-shot_pic("res/shot.png")
-{
+cPlayer player;
 
-	pos = Vec2f(100, 100);
-	size = Vec2f(5, 20);
-	cut_pos = Vec2f(0, 0);
-	cut_size = Vec2f(32, 32);
-	speed = Vec2f(0, 10.0f);
-	direction = UP;
+cShot::cShot(){
 
-	is_show = false;
+	pic_ = Texture("res/shot.png");
+
+	pos_ = Vec2f(100, 100);
+	size_ = Vec2f(5, 20);
+	cut_pos_ = Vec2f(0, 0);
+	cut_size_ = Vec2f(32, 32);
+	speed_ = Vec2f(0, 10.0f);
+	direction_ = UP;
+
+	is_show_ = false;
 
 }
 cShot::~cShot(){}
 
 
 bool cShot::isShowShot(){
-	return is_show;
+	return is_show_;
 }
 void cShot::setIsShow(){
-	if (!is_show)
-		is_show = true;
+	if (!is_show_)
+		is_show_ = true;
 }
 
 
 Vec2f cShot::setPos(Vec2f get_pos){
-	if (!is_show)
-		pos = get_pos;
+	if (!is_show_)
+		pos_ = get_pos;
 	return get_pos;
 }
 
 void cShot::setDirection(int get_direction){
 
-	if (!is_show){
+	if (!is_show_){
 		if (get_direction == LEFT){
-			direction = LEFT;
-			speed = Vec2f(-10.0f, 0);
-			angle = (PI / 2) * 3;
+			direction_ = LEFT;
+			speed_ = Vec2f(-10.0f, 0);
+			angle_ = (PI / 2) * 3;
 		}
 		if (get_direction == RIGHT){
-			direction = RIGHT;
-			speed = Vec2f(10.0f, 0);
-			angle = (PI / 2);
+			direction_ = RIGHT;
+			speed_ = Vec2f(10.0f, 0);
+			angle_ = (PI / 2);
 		}
 		if (get_direction == DOWN){
-			direction = DOWN;
-			speed = Vec2f(0, -10.0f);
-			angle = (PI * 2);
+			direction_ = DOWN;
+			speed_ = Vec2f(0, -10.0f);
+			angle_ = (PI * 2);
 		}
 		if (get_direction == UP){
-			direction = UP;
-			speed = Vec2f(0, 10.0f);
-			angle = PI;
+			direction_ = UP;
+			speed_ = Vec2f(0, 10.0f);
+			angle_ = PI;
 		}
 	}
 
 }
 
 
-void cShot::updata(){
+void cShot::update(){
 
-	if (is_show){
-		pos += speed;
+	if (is_show_){
+		pos_ += speed_;
 
-		if (pos.x() < -WIDTH / 2 || pos.x() > WIDTH / 2 ||
-			pos.y() < -HEIGHT / 2 || pos.y() > HEIGHT / 2){
-			is_show = false;
+		if (pos_.x() < -WIDTH / 2 || pos_.x() > WIDTH / 2 ||
+			pos_.y() < -HEIGHT / 2 || pos_.y() > HEIGHT / 2){
+			is_show_ = false;
 		}
 
 	}
@@ -78,9 +80,9 @@ void cShot::updata(){
 void cShot::draw(){
 
 	//ƒLƒƒƒ‰‚Ì‰¼’u‚«
-	drawTextureBox(pos.x(), pos.y(), size.x(), size.y(),
-		cut_pos.x(), cut_pos.y(), cut_size.x(), cut_size.y(),
-		shot_pic, Color(1, 1, 1),
-		angle, Vec2f(1, 1), Vec2f(size / 2));
+	drawTextureBox(pos_.x(), pos_.y(), size_.x(), size_.y(),
+		cut_pos_.x(), cut_pos_.y(), cut_size_.x(), cut_size_.y(),
+		pic_, Color(1, 1, 1),
+		angle_, Vec2f(1, 1), Vec2f(size_ / 2));
 
 }

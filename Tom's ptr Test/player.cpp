@@ -2,31 +2,31 @@
 #include "player.h"
 #include "shot.h"
 
-cPlayer::cPlayer() :
-player_pic("res/player.png")
-{
+cPlayer::cPlayer(){
 
-	pos = Vec2f(0, 0);
-	size = Vec2f(50, 50);
-	cut_pos = Vec2f(0, 0);
-	cut_size = Vec2f(64, 64);
-	speed = Vec2f(1.0f, 1.0f);
-	direction = UP;
-	angle = 0;
+	pic_ = Texture("res/player.png");
+
+	pos_ = Vec2f(0, 0);
+	size_ = Vec2f(50, 50);
+	cut_pos_ = Vec2f(0, 0);
+	cut_size_ = Vec2f(64, 64);
+	speed_ = Vec2f(1.0f, 1.0f);
+	direction_ = UP;
+	angle_ = 0;
 
 }
 cPlayer::~cPlayer(){}
 
 
 Vec2f cPlayer::getPos(){
-	return pos;
+	return pos_;
 }
 Vec2f cPlayer::getSize(){
-	return size;
+	return size_;
 }
 
 int cPlayer::getDirection(){
-	return direction;
+	return direction_;
 }
 
 bool cPlayer::isPushSpace(AppEnv& env){
@@ -34,28 +34,27 @@ bool cPlayer::isPushSpace(AppEnv& env){
 }
 
 
-void cPlayer::updata(AppEnv& env){
-
+void cPlayer::update(AppEnv& env){
 
 	if (env.isPressKey('D')){
-		pos.x() += speed.x();
-		direction = RIGHT;
-		angle = (PI / 2) * 3;
+		pos_.x() += speed_.x();
+		direction_ = RIGHT;
+		angle_ = (PI / 2) * 3;
 	}
 	if (env.isPressKey('A')){
-		pos.x() -= speed.x();
-		direction = LEFT;
-		angle = (PI / 2);
+		pos_.x() -= speed_.x();
+		direction_ = LEFT;
+		angle_ = (PI / 2);
 	}
 	if (env.isPressKey('W')){
-		pos.y() += speed.y();
-		direction = UP;
-		angle = (PI * 2);
+		pos_.y() += speed_.y();
+		direction_ = UP;
+		angle_ = (PI * 2);
 	}
 	if (env.isPressKey('S')){
-		pos.y() -= speed.y();
-		direction = DOWN;
-		angle = PI;
+		pos_.y() -= speed_.y();
+		direction_ = DOWN;
+		angle_ = PI;
 	}
 
 }
@@ -63,9 +62,9 @@ void cPlayer::updata(AppEnv& env){
 void cPlayer::draw(){
 
 	//ƒLƒƒƒ‰‚Ì‰¼’u‚«
-	drawTextureBox(pos.x(), pos.y(), size.x(), size.y(),
-		cut_pos.x(), cut_pos.y(), cut_size.x(), cut_size.y(),
-		player_pic, Color(1, 1, 1),
-		angle, Vec2f(1, 1), Vec2f(size / 2));
+	drawTextureBox(pos_.x(), pos_.y(), size_.x(), size_.y(),
+		cut_pos_.x(), cut_pos_.y(), cut_size_.x(), cut_size_.y(),
+		pic_, Color(1, 1, 1),
+		angle_, Vec2f(1, 1), Vec2f(size_ / 2));
 
 }

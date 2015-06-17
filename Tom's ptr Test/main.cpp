@@ -1,36 +1,20 @@
 ﻿
-#include "player.h"
-#include "shot.h"
+#include "playerManager.h"
 
 
 int main() {
 
 	AppEnv app_env(Window::WIDTH, Window::HEIGHT, false, true);
 
-	pPlayer Player = pPlayer(new cPlayer);
-	pShot Shot = pShot(new cShot);
+	pPlayerManager PlayerManager = pPlayerManager(new cPlayerManager);
 
-	while (app_env.isOpen()) {
+	while (app_env.isOpen()){
 
-		Player->updata(app_env);
-		Shot->setDirection(Player->getDirection());
-
-		if (Player->isPushSpace(app_env)){
-			Shot->setPos(Player->getPos());
-			Shot->setIsShow();
-		}
-		if (Shot->isShowShot())
-			Shot->updata();
-
+		PlayerManager->update(app_env);
 
 		app_env.setupDraw();
 
-
-		Player->draw();
-
-		if (Shot->isShowShot())
-			Shot->draw();
-
+		PlayerManager->draw();
 
 		app_env.update();
 

@@ -4,14 +4,9 @@
 #include "object.h"
 
 
-class cPlayer;
-typedef std::shared_ptr<cPlayer>pPlayer;
+typedef std::shared_ptr<class cPlayer>pPlayer;
 class cPlayer :public cObject{
-
-private:
-
-	Texture player_pic;
-		
+			
 public:
 
 	cPlayer();
@@ -23,7 +18,7 @@ public:
 
 	bool isPushSpace(AppEnv&);
 
-	void updata(AppEnv&);
+	void update(AppEnv&);
 	void draw();
 
 };

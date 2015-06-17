@@ -6,6 +6,6 @@ cObject::cObject(){
 }
 cObject::~cObject(){}
 
-void cObject::updata(){}
+void cObject::update(){}
 
 void cObject::draw(){}

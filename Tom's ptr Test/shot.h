@@ -4,15 +4,12 @@
 #include "object.h"
 
 
-class cShot;
-typedef std::shared_ptr<cShot>pShot;
+typedef std::shared_ptr<class cShot>pShot;
 class cShot :public cObject{
 
 private:
 
-	Texture shot_pic;
-
-	bool is_show;
+	bool is_show_;
 
 public:
 
@@ -26,7 +23,7 @@ public:
 
 	void setDirection(int);
 
-	void updata();
+	void update();
 	void draw();
 
 };
