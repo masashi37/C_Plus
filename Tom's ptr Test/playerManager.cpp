@@ -8,14 +8,11 @@ cPlayerManager::cPlayerManager(){}
 void cPlayerManager::update(AppEnv& app_env){
 
 	Player->update(app_env);
-	Shot->setDirection(Player->getDirection());
 
-	if (Player->isPushSpace(app_env)){
-		Shot->setPos(Player->getPos());
-		Shot->setIsShow();
-	}
-	if (Shot->isShowShot())
-		Shot->update();
+	if (Player->isPushSpace(app_env))
+		Shot->create(true, Player->getPos(), Player->getDirection());
+
+	Shot->update();
 
 }
 
@@ -23,7 +20,6 @@ void cPlayerManager::draw(){
 
 	Player->draw();
 
-	if (Shot->isShowShot())
-		Shot->draw();
+	Shot->draw();
 
 }

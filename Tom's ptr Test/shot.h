@@ -9,19 +9,26 @@ class cShot :public cObject{
 
 private:
 
-	bool is_show_;
+	struct ShotDate{
+		Vec2f pos;
+		Vec2f size;
+		Vec2f cut_pos;
+		Vec2f cut_size;
+		Vec2f speed;
+		float angle;
+		int direction;
+		bool is_show;
+	};
+
+	std::vector<ShotDate>shot;
+	ShotDate shot_init;
 
 public:
 
 	cShot();
 	~cShot();
 
-	bool isShowShot();
-	void setIsShow();
-
-	Vec2f setPos(Vec2f);
-
-	void setDirection(int);
+	void create(bool, Vec2f, int);
 
 	void update();
 	void draw();

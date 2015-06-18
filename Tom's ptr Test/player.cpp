@@ -36,22 +36,26 @@ bool cPlayer::isPushSpace(AppEnv& env){
 
 void cPlayer::update(AppEnv& env){
 
-	if (env.isPressKey('D')){
+	if (env.isPressKey('D') || 
+		env.isPressKey(GLFW_KEY_RIGHT)){
 		pos_.x() += speed_.x();
 		direction_ = RIGHT;
 		angle_ = (PI / 2) * 3;
 	}
-	if (env.isPressKey('A')){
+	if (env.isPressKey('A') ||
+		env.isPressKey(GLFW_KEY_LEFT)){
 		pos_.x() -= speed_.x();
 		direction_ = LEFT;
 		angle_ = (PI / 2);
 	}
-	if (env.isPressKey('W')){
+	if (env.isPressKey('W') ||
+		env.isPressKey(GLFW_KEY_UP)){
 		pos_.y() += speed_.y();
 		direction_ = UP;
 		angle_ = (PI * 2);
 	}
-	if (env.isPressKey('S')){
+	if (env.isPressKey('S') ||
+		env.isPressKey(GLFW_KEY_DOWN)){
 		pos_.y() -= speed_.y();
 		direction_ = DOWN;
 		angle_ = PI;

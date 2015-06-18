@@ -12,6 +12,8 @@ class cPlayerManager{
 private:
 	pPlayer Player = pPlayer(new cPlayer);
 	pShot Shot = pShot(new cShot);
+
+	std::vector<pShot>shot;
 public:
 
 	cPlayerManager();

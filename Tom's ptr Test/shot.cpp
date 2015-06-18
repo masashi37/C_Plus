@@ -6,58 +6,62 @@ cPlayer player;
 
 cShot::cShot(){
 
-	pic_ = Texture("res/shot.png");
-
-	pos_ = Vec2f(100, 100);
+	pos_ = Vec2f(0, 0);
 	size_ = Vec2f(5, 20);
 	cut_pos_ = Vec2f(0, 0);
 	cut_size_ = Vec2f(32, 32);
-	speed_ = Vec2f(0, 10.0f);
+	speed_ = Vec2f(0, 0);
 	direction_ = UP;
 
-	is_show_ = false;
+	shot_init = {
+		pos_, size_,
+		cut_pos_, cut_size_,
+		speed_, 
+		0,
+		direction_, 
+		false
+	};
 
 }
 cShot::~cShot(){}
 
 
-bool cShot::isShowShot(){
-	return is_show_;
-}
-void cShot::setIsShow(){
-	if (!is_show_)
-		is_show_ = true;
-}
+void cShot::create(bool is_show, Vec2f player_pos, int player_direction){
 
+	pic_ = Texture("res/shot.png");
 
-Vec2f cShot::setPos(Vec2f get_pos){
-	if (!is_show_)
-		pos_ = get_pos;
-	return get_pos;
-}
+	pShot obj = pShot(new cShot);
 
-void cShot::setDirection(int get_direction){
+	shot.push_back(shot_init);
 
-	if (!is_show_){
-		if (get_direction == LEFT){
-			direction_ = LEFT;
-			speed_ = Vec2f(-10.0f, 0);
-			angle_ = (PI / 2) * 3;
+	for (auto& shots : shot){
+
+		if (!shots.is_show){
+			if (player_direction == LEFT){
+				shots.direction = LEFT;
+				shots.speed = Vec2f(-10.0f, 0);
+				shots.angle = (PI / 2) * 3;
+			}
+			if (player_direction == RIGHT){
+				shots.direction = RIGHT;
+				shots.speed = Vec2f(10.0f, 0);
+				shots.angle = (PI / 2);
+			}
+			if (player_direction == DOWN){
+				shots.direction = DOWN;
+				shots.speed = Vec2f(0, -10.0f);
+				shots.angle = (PI * 2);
+			}
+			if (player_direction == UP){
+				shots.direction = UP;
+				shots.speed = Vec2f(0, 10.0f);
+				shots.angle = PI;
+			}
 		}
-		if (get_direction == RIGHT){
-			direction_ = RIGHT;
-			speed_ = Vec2f(10.0f, 0);
-			angle_ = (PI / 2);
-		}
-		if (get_direction == DOWN){
-			direction_ = DOWN;
-			speed_ = Vec2f(0, -10.0f);
-			angle_ = (PI * 2);
-		}
-		if (get_direction == UP){
-			direction_ = UP;
-			speed_ = Vec2f(0, 10.0f);
-			angle_ = PI;
+
+		if (!shots.is_show){
+			shots.is_show = true;
+			shots.pos = player_pos;
 		}
 	}
 
@@ -66,23 +70,33 @@ void cShot::setDirection(int get_direction){
 
 void cShot::update(){
 
-	if (is_show_){
-		pos_ += speed_;
+	for (auto& shots : shot){
 
-		if (pos_.x() < -WIDTH / 2 || pos_.x() > WIDTH / 2 ||
-			pos_.y() < -HEIGHT / 2 || pos_.y() > HEIGHT / 2){
-			is_show_ = false;
+		if (shots.is_show){
+			shots.pos += shots.speed;
+
+			if (shots.pos.x() < -WIDTH / 2 || shots.pos.x() > WIDTH / 2 ||
+				shots.pos.y() < -HEIGHT / 2 || shots.pos.y() > HEIGHT / 2){
+				shots.is_show = false;
+				shot.erase(shot.begin());
+			}
 		}
 
 	}
+
 }
 
 void cShot::draw(){
 
-	//ƒLƒƒƒ‰‚Ì‰¼’u‚«
-	drawTextureBox(pos_.x(), pos_.y(), size_.x(), size_.y(),
-		cut_pos_.x(), cut_pos_.y(), cut_size_.x(), cut_size_.y(),
-		pic_, Color(1, 1, 1),
-		angle_, Vec2f(1, 1), Vec2f(size_ / 2));
+	for (auto& shots : shot){
+
+		if (shots.is_show){
+			drawTextureBox(shots.pos.x(), shots.pos.y(), shots.size.x(), shots.size.y(),
+				shots.cut_pos.x(), shots.cut_pos.y(), shots.cut_size.x(), shots.cut_size.y(),
+				pic_, Color(1, 1, 1),
+				shots.angle, Vec2f(1, 1), Vec2f(shots.size / 2));
+		}
+
+	}
 
 }
