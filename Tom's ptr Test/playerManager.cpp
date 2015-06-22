@@ -9,15 +9,18 @@ void cPlayerManager::update(AppEnv& app_env){
 	if (Player->isPushSpace(app_env))
 		shot.push_back(pShot(new cShot(Player->getPos(), Player->getDirection())));
 
-	for (int i = 0; i < shot.size(); ++i){
-		shot[i]->update();
+	auto shot_it = shot.begin();
+	while (shot_it != shot.end()){
+		(*shot_it)->update();
 
-		if (shot[i]->getPos().x() < -WIDTH / 2 || shot[i]->getPos().x() > WIDTH / 2 ||
-			shot[i]->getPos().y() < -HEIGHT / 2 || shot[i]->getPos().y() > HEIGHT / 2){
-			shot.erase(shot.begin());
+		if ((*shot_it)->getPos().x() < -WIDTH / 2 || (*shot_it)->getPos().x() > WIDTH / 2 ||
+			(*shot_it)->getPos().y() < -HEIGHT / 2 || (*shot_it)->getPos().y() > HEIGHT / 2){
+			shot_it = shot.erase(shot_it++);
 		}
 
-		std::cout << shot.size()<<std::endl;
+		std::cout << shot.size() << std::endl;
+
+		shot_it++;
 	}
 
 }
