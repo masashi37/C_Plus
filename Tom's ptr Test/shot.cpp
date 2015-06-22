@@ -4,99 +4,55 @@
 
 cPlayer player;
 
-cShot::cShot(){
+cShot::cShot(Vec2f player_pos, int player_direction){
 
-	pos_ = Vec2f(0, 0);
+	pic_ = Texture("res/shot.png");
+
+	pos_ = player_pos;
 	size_ = Vec2f(5, 20);
 	cut_pos_ = Vec2f(0, 0);
 	cut_size_ = Vec2f(32, 32);
-	speed_ = Vec2f(0, 0);
-	direction_ = UP;
 
-	shot_init = {
-		pos_, size_,
-		cut_pos_, cut_size_,
-		speed_, 
-		0,
-		direction_, 
-		false
-	};
+	if (player_direction == LEFT){
+		direction_ = LEFT;
+		speed_ = Vec2f(-10.0f, 0);
+		angle_ = (PI / 2) * 3;
+	}
+	if (player_direction == RIGHT){
+		direction_ = RIGHT;
+		speed_ = Vec2f(10.0f, 0);
+		angle_ = (PI / 2);
+	}
+	if (player_direction == DOWN){
+		direction_ = DOWN;
+		speed_ = Vec2f(0, -10.0f);
+		angle_ = (PI * 2);
+	}
+	if (player_direction == UP){
+		direction_ = UP;
+		speed_ = Vec2f(0, 10.0f);
+		angle_ = PI;
+	}
 
 }
 cShot::~cShot(){}
 
 
-void cShot::create(bool is_show, Vec2f player_pos, int player_direction){
-
-	pic_ = Texture("res/shot.png");
-
-	pShot obj = pShot(new cShot);
-
-	shot.push_back(shot_init);
-
-	for (auto& shots : shot){
-
-		if (!shots.is_show){
-			if (player_direction == LEFT){
-				shots.direction = LEFT;
-				shots.speed = Vec2f(-10.0f, 0);
-				shots.angle = (PI / 2) * 3;
-			}
-			if (player_direction == RIGHT){
-				shots.direction = RIGHT;
-				shots.speed = Vec2f(10.0f, 0);
-				shots.angle = (PI / 2);
-			}
-			if (player_direction == DOWN){
-				shots.direction = DOWN;
-				shots.speed = Vec2f(0, -10.0f);
-				shots.angle = (PI * 2);
-			}
-			if (player_direction == UP){
-				shots.direction = UP;
-				shots.speed = Vec2f(0, 10.0f);
-				shots.angle = PI;
-			}
-		}
-
-		if (!shots.is_show){
-			shots.is_show = true;
-			shots.pos = player_pos;
-		}
-	}
-
+Vec2f cShot::getPos(){
+	return pos_;
 }
-
 
 void cShot::update(){
 
-	for (auto& shots : shot){
-
-		if (shots.is_show){
-			shots.pos += shots.speed;
-
-			if (shots.pos.x() < -WIDTH / 2 || shots.pos.x() > WIDTH / 2 ||
-				shots.pos.y() < -HEIGHT / 2 || shots.pos.y() > HEIGHT / 2){
-				shots.is_show = false;
-				shot.erase(shot.begin());
-			}
-		}
-
-	}
+	pos_ += speed_;
 
 }
 
 void cShot::draw(){
 
-	for (auto& shots : shot){
-
-		if (shots.is_show){
-			drawTextureBox(shots.pos.x(), shots.pos.y(), shots.size.x(), shots.size.y(),
-				shots.cut_pos.x(), shots.cut_pos.y(), shots.cut_size.x(), shots.cut_size.y(),
-				pic_, Color(1, 1, 1),
-				shots.angle, Vec2f(1, 1), Vec2f(shots.size / 2));
-		}
-
-	}
+	drawTextureBox(pos_.x(), pos_.y(), size_.x(), size_.y(),
+		cut_pos_.x(), cut_pos_.y(), cut_size_.x(), cut_size_.y(),
+		pic_, Color(1, 1, 1),
+		angle_, Vec2f(1, 1), Vec2f(size_ / 2));
 
 }

@@ -17,18 +17,15 @@ private:
 		Vec2f speed;
 		float angle;
 		int direction;
-		bool is_show;
 	};
 
-	std::vector<ShotDate>shot;
-	ShotDate shot_init;
 
 public:
 
-	cShot();
+	cShot(Vec2f, int);
 	~cShot();
 
-	void create(bool, Vec2f, int);
+	Vec2f getPos();
 
 	void update();
 	void draw();
