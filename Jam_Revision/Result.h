@@ -9,21 +9,19 @@ class Result {
 
 private:
 
-	/*
-float x = -WIDTH / 2;
-float y = -HEIGHT / 2;
-float size_x = WIDTH;
-float size_y = HEIGHT;
+	enum {
+		ALICE_LOSE,
+		CINDERELLA_LOSE,
+		KAGUYA_LOSE,
+		MUCH_GIRL_LOSE,
+		RED_HOOD_LOSE,
+		SNOW_WHITE_LOSE,
 
-int cut_x = 0;
-int cut_y = 0;
-int cut_size_x = 1024;
-int cut_size_y = 512;
+		WINNER,
 
-const int result_lose = 6;
-int result_pic_select = 0;
-
-bool Init_flag = false;*/
+		RESULT_TEXTURE_MAX,
+	};
+	Texture* result_list[RESULT_TEXTURE_MAX];
 
 public:
 

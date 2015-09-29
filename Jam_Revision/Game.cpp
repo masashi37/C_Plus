@@ -13,7 +13,8 @@ void Game::setChara(int select_chara_num) {
 
 void Game::setup() {
 
-	const char* text_name[CHARA_MAX]{
+	//‰æ‘œ---------------------------------------------
+	const char* texture_name[CHARA_MAX]{
 		"res/Texture/Chara/alice.png",
 		"res/Texture/Chara/cinderella.png",
 		"res/Texture/Chara/kaguya.png",
@@ -29,11 +30,42 @@ void Game::setup() {
 		"res/Texture/Chara/snow_white_evo.png",
 	};
 	for (int index = 0; index < CHARA_MAX; ++index) {
-		chara_list_[index] = new Texture(text_name[index]);
+		chara_list_[index] = new Texture(texture_name[index]);
 	}
 
 	prince_.pic =
 		Texture("res/Texture/Chara/prince.png");
+
+
+	//ƒ}ƒbƒv---------------------------------------------
+	const char* text_name[MAP_TEXT_MAX]{
+		"res/mapType/map_type01.txt"
+	};
+	for (int index = 0; index < MAP_TEXT_MAX; ++index) {
+		map_type_list_[index] = new std::ifstream(text_name[index]);
+	}
+
+	for (int y = 0; y < MAP_LENGTH; y++) {
+		for (int x = 0; x < MAP_WIDE; x++) {
+
+			map_[y][x].size = 100;
+
+			map_[y][x].pos.x() =
+				-WIDTH / 2 + (map_[y][x].size * x) -
+				((map_[y][x].size * MAP_WIDE) * y);
+			map_[y][x].pos.y() =
+				HEIGHT / 2 - map_[y][x].size -
+				(map_[y][x].size * y);
+
+			map_[y][x].cut_pos =
+				Vec2i(0, 0);
+			map_[y][x].cut_size=
+				Vec2i(512, 512);
+
+			
+
+		}
+	}
 
 }
 
