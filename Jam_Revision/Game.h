@@ -4,10 +4,15 @@
 #include "AppEnv.h"
 #include "Common.h"
 
+#include "Map.h"
+
 
 class Game {
 
 private:
+
+	Map map;
+
 
 	enum CharaTextureName {
 		ALICE,
@@ -30,43 +35,10 @@ private:
 
 	TextureObject chara_[CHARA_MAX];
 
-	TextureObject prince_;
-
-
-	enum MapText {
-		MAP_TYPE01,
-
-		MAP_TEXT_MAX,
-	};
-	std::ifstream* map_type_list_[MAP_TEXT_MAX];
-
-	struct Map {
-		int state;
-
-		Vec2f pos;
-		int size;
-		Vec2i cut_pos;
-		Vec2i cut_size;
-	};
-	enum {
-		MAP_LENGTH = 10,
-		MAP_WIDE = 120,
-	};
-	Map map_[MAP_LENGTH][MAP_WIDE];
-
-	enum BlockType {
-		AIR,
-		FLOOR,
-		GROUND,
-		TRANSFORMATION,
-		CONCRETE,
-		RED_CARPET,
-		GOAL,
-		PRINCE,
-	};
-
 
 	int chara_selecter_;
+
+	Vec2f map_speed_;
 
 public:
 

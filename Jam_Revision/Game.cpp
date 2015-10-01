@@ -2,7 +2,10 @@
 #include "Game.h"
 
 
-Game::Game() {
+Game::Game(){
+	map.load();
+
+	map_speed_ = Vec2f(-3.0f, 0);
 }
 
 
@@ -12,6 +15,8 @@ void Game::setChara(int select_chara_num) {
 
 
 void Game::setup() {
+
+	map.setup();
 
 	//‰æ‘œ---------------------------------------------
 	const char* texture_name[CHARA_MAX]{
@@ -33,43 +38,11 @@ void Game::setup() {
 		chara_list_[index] = new Texture(texture_name[index]);
 	}
 
-	prince_.pic =
-		Texture("res/Texture/Chara/prince.png");
-
-
-	//ƒ}ƒbƒv---------------------------------------------
-	const char* text_name[MAP_TEXT_MAX]{
-		"res/mapType/map_type01.txt"
-	};
-	for (int index = 0; index < MAP_TEXT_MAX; ++index) {
-		map_type_list_[index] = new std::ifstream(text_name[index]);
-	}
-
-	for (int y = 0; y < MAP_LENGTH; y++) {
-		for (int x = 0; x < MAP_WIDE; x++) {
-
-			map_[y][x].size = 100;
-
-			map_[y][x].pos.x() =
-				-WIDTH / 2 + (map_[y][x].size * x) -
-				((map_[y][x].size * MAP_WIDE) * y);
-			map_[y][x].pos.y() =
-				HEIGHT / 2 - map_[y][x].size -
-				(map_[y][x].size * y);
-
-			map_[y][x].cut_pos =
-				Vec2i(0, 0);
-			map_[y][x].cut_size=
-				Vec2i(512, 512);
-
-			
-
-		}
-	}
-
 }
 
 void Game::update() {
+
+	map.setPos(map_speed_);
 
 	/*
 	//BGM Ä¶
@@ -83,6 +56,7 @@ void Game::update() {
 }
 
 void Game::draw() {
+	map.draw();
 }
 
 SceneName Game::shift() {
