@@ -73,7 +73,7 @@ void Scene::shift() {
 
 	case SELECT:
 		if (App::env->isPushKey(GLFW_KEY_ENTER)) {
-			game.setChara(select.getSelectChara());
+			game.setPlayer(select.getSelectChara());
 			scene_changer_ = select.shift();
 		}
 		break;

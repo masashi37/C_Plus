@@ -39,6 +39,10 @@ Vec2f Map::getPos() {
 	return map_pos;
 }
 
+Vec2f Map::getPos(int y, int x) {
+	return map_[y][x].pos;
+}
+
 void  Map::setPos(Vec2f change_pos) {
 
 	for (int y = 0; y < MAP_LENGTH; ++y) {

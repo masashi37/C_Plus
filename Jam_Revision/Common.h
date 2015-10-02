@@ -30,10 +30,6 @@ struct TextureObject :ObjectBace {
 	Vec2i cut_size;
 	Texture pic;
 };
-struct Object :ObjectBace {
-	Vec2f speed;
-	int mode;
-};
 
 
 

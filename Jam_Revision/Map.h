@@ -54,6 +54,8 @@ public:
 	Map();
 
 	Vec2f getPos();
+	//int(y”Ô’n), int(x”Ô’n)
+	Vec2f getPos(int, int);
 	void setPos(Vec2f);
 	Vec2f getSize();
 

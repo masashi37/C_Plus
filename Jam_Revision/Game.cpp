@@ -3,41 +3,19 @@
 
 
 Game::Game(){
-	map.load();
+	map.load();	
 
 	map_speed_ = Vec2f(-3.0f, 0);
 }
 
 
-void Game::setChara(int select_chara_num) {
-	chara_selecter_ = select_chara_num;
+void Game::setPlayer(int chara_selection_) {
+	player.setup(chara_selection_);
 }
 
 
 void Game::setup() {
-
 	map.setup();
-
-	//‰æ‘œ---------------------------------------------
-	const char* texture_name[CHARA_MAX]{
-		"res/Texture/Chara/alice.png",
-		"res/Texture/Chara/cinderella.png",
-		"res/Texture/Chara/kaguya.png",
-		"res/Texture/Chara/much.png",
-		"res/Texture/Chara/red_zukin.png",
-		"res/Texture/Chara/snow_white.png",
-
-		"res/Texture/Chara/alice_evo.png",
-		"res/Texture/Chara/cinderella_evo.png",
-		"res/Texture/Chara/kaguya_evo.png",
-		"res/Texture/Chara/much_evo.png",
-		"res/Texture/Chara/red_zukin_evo.png",
-		"res/Texture/Chara/snow_white_evo.png",
-	};
-	for (int index = 0; index < CHARA_MAX; ++index) {
-		chara_list_[index] = new Texture(texture_name[index]);
-	}
-
 }
 
 void Game::update() {
@@ -57,6 +35,7 @@ void Game::update() {
 
 void Game::draw() {
 	map.draw();
+	player.draw();
 }
 
 SceneName Game::shift() {
